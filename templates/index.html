@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to the Refrigerator App</h1>
+<p>Manage your refrigerator efficiently by inserting items, consuming them, tracking expiration dates, and creating shopping lists!</p>
+
+<h2>Current Status of Refrigerator</h2>
+{% if fridge %}
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Expiry Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item, details in fridge.items() %}
+            {% if details['quantity'] > 0 %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>{{ details['quantity'] }}</td>
+                    <td>{{ details['unit'] }}</td>
+                    <td>{{ details['expiry_date'] }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+        <!-- Expired items display -->
+        <h2>Expired Items</h2>
+        {% if expired_items %}
+            <table class="expired-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in expired_items %}
+                        <tr>
+                            <td>{{ item }}</td>
+                            <td>{{ fridge[item]['expiry_date'] }}</td>
+                            <td>Expired</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No expired items.</p>
+        {% endif %}
+{% else %}
+<p>No items in the refrigerator.</p>
+{% endif %}
+
+{% endblock %}

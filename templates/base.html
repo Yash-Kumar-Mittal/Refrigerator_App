@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refrigerator App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // JavaScript for displaying flash messages
+        function showFlashMessage(message, category) {
+            const flashDiv = document.createElement('div');
+            flashDiv.className = `flash ${category}`;
+            flashDiv.innerText = message;
+            document.body.appendChild(flashDiv);
+            setTimeout(() => {
+                flashDiv.remove();
+            }, 3000);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a> |
+            <a href="{{ url_for('insert') }}">Insert Item</a> |
+            <a href="{{ url_for('consume') }}">Consume Item</a> |
+            <a href="{{ url_for('shopping_list') }}">Shopping List</a> |
+            <a href="{{ url_for('history_page') }}">History</a>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <script>
+                    {% for category, message in messages %}
+                    showFlashMessage("{{ message }}", "{{ category }}");
+                    {% endfor %}
+                </script>
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </main>
+ 
+</body>
+</html>

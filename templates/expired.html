@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Expired Items</h1>
+{% if expired_items %}
+<ul>
+    {% for item in expired_items %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No expired items at the moment.</p>
+{% endif %}
+{% endblock %}

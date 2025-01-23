@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>History of Actions</h1>
+{% if history %}
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Action</th>
+        <th>Item</th>
+        <th>Quantity</th>
+    </tr>
+    {% for record in history %}
+    <tr>
+        <td>{{ record.date }}</td>
+        <td>{{ record.action }}</td>
+        <td>{{ record.item }}</td>
+        <td>{{ record.quantity }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No history available yet.</p>
+{% endif %}
+
+{% endblock %}

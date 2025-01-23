@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Refrigerator Status</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Expiration Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item, details in fridge.items() %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>{{ details.quantity }}</td>
+            <td>{{ details.expiry_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

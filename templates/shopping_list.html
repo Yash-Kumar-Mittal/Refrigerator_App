@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Shopping List</h1>
+
+<div>
+    <h2>Items to Restock (Low Stock)</h2>
+    {% if low_stock_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Current Quantity</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item, details in low_stock_items.items() %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>{{ details["quantity"] }} {{ details["unit"] }}</td>
+                    <td>Low stock ({{ details["quantity"] }} left)</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No items need restocking due to low stock.</p>
+    {% endif %}
+</div>
+
+<div>
+    <h2>Items to Restock (Expiry Date)</h2>
+    {% if expiring_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Current Quantity</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item, details in expiring_items.items() %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>{{ details["quantity"] }} {{ details["unit"] }}</td>
+                    <td>About to expire (Expires on {{ details["expiry_date"] }})</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No items are about to expire.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
